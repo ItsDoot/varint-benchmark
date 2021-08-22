@@ -26,17 +26,16 @@ mod tests {
     use crate::VarIntWrite;
     use crate::velocity::VelocityVarIntWrite;
 
-    fn numbers() -> Vec<i32> {
-        (0..i32::MAX / 2048).map(|v| v * 2047).collect()
+    fn numbers() -> impl Iterator<Item=i32> {
+        (0..i32::MAX / 2048).map(|v| v * 2047)
     }
 
     #[bench]
     fn blended(b: &mut Bencher) {
         let mut bytes = test::black_box(Vec::<u8>::new());
-        let nums = numbers();
 
         b.iter(|| {
-            for &n in &nums {
+            for n in numbers() {
                 BlendedVarIntWrite::write(&mut bytes, n);
                 bytes.clear();
             }
@@ -46,10 +45,9 @@ mod tests {
     #[bench]
     fn bungee(b: &mut Bencher) {
         let mut bytes = test::black_box(Vec::<u8>::new());
-        let nums = numbers();
 
         b.iter(|| {
-            for &n in &nums {
+            for n in numbers() {
                 BungeeVarIntWrite::write(&mut bytes, n);
                 bytes.clear();
             }
@@ -59,10 +57,9 @@ mod tests {
     #[bench]
     fn lucky5(b: &mut Bencher) {
         let mut bytes = test::black_box(Vec::<u8>::new());
-        let nums = numbers();
 
         b.iter(|| {
-            for &n in &nums {
+            for n in numbers() {
                 Lucky5VarIntWrite::write(&mut bytes, n);
                 bytes.clear();
             }
@@ -72,10 +69,9 @@ mod tests {
     #[bench]
     fn velocity(b: &mut Bencher) {
         let mut bytes = test::black_box(Vec::<u8>::new());
-        let nums = numbers();
 
         b.iter(|| {
-            for &n in &nums {
+            for n in numbers() {
                 VelocityVarIntWrite::write(&mut bytes, n);
                 bytes.clear();
             }
