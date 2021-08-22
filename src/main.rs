@@ -32,7 +32,7 @@ mod tests {
 
     #[bench]
     fn blended(b: &mut Bencher) {
-        let mut bytes = [0u8; 5];
+        let mut bytes = test::black_box([0u8; 5]);
         let nums = numbers();
 
         b.iter(|| {
@@ -44,7 +44,7 @@ mod tests {
 
     #[bench]
     fn bungee(b: &mut Bencher) {
-        let mut bytes = [0u8; 5];
+        let mut bytes = test::black_box([0u8; 5]);
         let nums = numbers();
 
         b.iter(|| {
@@ -56,7 +56,7 @@ mod tests {
 
     #[bench]
     fn lucky5(b: &mut Bencher) {
-        let mut bytes = [0u8; 5];
+        let mut bytes = test::black_box([0u8; 5]);
         let nums = numbers();
 
         b.iter(|| {
@@ -68,7 +68,7 @@ mod tests {
 
     #[bench]
     fn velocity(b: &mut Bencher) {
-        let mut bytes = [0u8; 5];
+        let mut bytes = test::black_box([0u8; 5]);
         let nums = numbers();
 
         b.iter(|| {
