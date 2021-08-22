@@ -32,52 +32,48 @@ mod tests {
 
     #[bench]
     fn blended(b: &mut Bencher) {
-        let mut bytes = Vec::<u8>::new();
+        let mut bytes = [0u8; 5];
         let nums = numbers();
 
         b.iter(|| {
             for &n in &nums {
-                BlendedVarIntWrite::write(&mut bytes, n);
-                bytes.clear();
+                BlendedVarIntWrite::write(&mut bytes[..], n);
             }
         })
     }
 
     #[bench]
     fn bungee(b: &mut Bencher) {
-        let mut bytes = Vec::<u8>::new();
+        let mut bytes = [0u8; 5];
         let nums = numbers();
 
         b.iter(|| {
             for &n in &nums {
-                BungeeVarIntWrite::write(&mut bytes, n);
-                bytes.clear();
+                BungeeVarIntWrite::write(&mut bytes[..], n);
             }
         })
     }
 
     #[bench]
     fn lucky5(b: &mut Bencher) {
-        let mut bytes = Vec::<u8>::new();
+        let mut bytes = [0u8; 5];
         let nums = numbers();
 
         b.iter(|| {
             for &n in &nums {
-                Lucky5VarIntWrite::write(&mut bytes, n);
-                bytes.clear();
+                Lucky5VarIntWrite::write(&mut bytes[..], n);
             }
         })
     }
 
     #[bench]
     fn velocity(b: &mut Bencher) {
-        let mut bytes = Vec::<u8>::new();
+        let mut bytes = [0u8; 5];
         let nums = numbers();
 
         b.iter(|| {
             for &n in &nums {
-                VelocityVarIntWrite::write(&mut bytes, n);
-                bytes.clear();
+                VelocityVarIntWrite::write(&mut bytes[..], n);
             }
         })
     }
